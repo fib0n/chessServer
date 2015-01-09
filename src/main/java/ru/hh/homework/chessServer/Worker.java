@@ -224,12 +224,13 @@ class Worker implements Runnable {
 
     private List<Exchange> exit(final String address) {
         final List<Exchange> exchanges = new ArrayList<>();
+        exchanges.add(new Exchange(address, Settings.Command.CLOSE.name()));
+
         if (!this.sessions.containsKey(address))
             return exchanges;
 
         final Player currentPlayer = this.sessions.remove(address);
         exchanges.add(new Exchange(address, "You have left the game"));
-        exchanges.add(new Exchange(address, Settings.Command.CLOSE.name()));
         final Game game = currentPlayer.game;
         dispose(game.id);
 

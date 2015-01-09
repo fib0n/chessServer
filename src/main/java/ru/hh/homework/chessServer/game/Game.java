@@ -64,7 +64,12 @@ public class Game implements Serializable {
     }
 
     public Optional<Player> getPlayer(final String token, final boolean opposite) {
-        checkState(this.players.size() == 2);
+        //todo refactor
+        if (this.players.size() == 1) {
+            if (!opposite && token.equals(this.players.get(0).token))
+                return Optional.of(this.players.get(0));
+            return Optional.empty();
+        }
         if (token.equals(this.players.get(0).token))
             return Optional.of(this.players.get(opposite ? 1 : 0));
         if (token.equals(this.players.get(1).token))

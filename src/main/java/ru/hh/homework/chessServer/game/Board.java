@@ -31,14 +31,14 @@ class Board implements Serializable {
 
     public Board() {
         this.state = new char[][]{
-                {'R', 'N', 'B', 'K', 'Q', 'B', 'N', 'R'},
+                {'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'},
                 {'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'},
                 {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
                 {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
                 {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
                 {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
                 {'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'},
-                {'r', 'n', 'b', 'k', 'q', 'b', 'n', 'r'}
+                {'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'}
         };
     }
 
@@ -193,7 +193,7 @@ class Board implements Serializable {
             return String.format("%s (%s) %s: '%s - %s'",
                     getColorName(this.isWhite),
                     piece,
-                    this.isCapture ? "attacks (" + targetPiece + ")" : "moves",
+                    this.isCapture ? "captures (" + targetPiece + ")" : "moves",
                     this.start, this.end);
         }
     }
