@@ -86,7 +86,7 @@ class Board implements Serializable {
             return new MoveResult("The piece cannot move to the target square", Status.INCORRECT);
         }
 
-        if (!(initial == Piece.KNIGHT.getAbbrChar()
+        if (!(isInstanceOf(Piece.KNIGHT, initial)
                 || isFreePath(movement.start, movement.end))) {
             return new MoveResult("The path from the initial to the target square is not free.", Status.INCORRECT);
         }
@@ -99,6 +99,10 @@ class Board implements Serializable {
         return new MoveResult(
                 movement.getDescription(getPieceRepresentation(initial), getPieceRepresentation(targetPiece))
                         + (withPromotion ? " with promotion to queen" : ""), Status.CORRECT);
+    }
+
+    private boolean isInstanceOf(final Piece piece, final char onBoard) {
+        return Character.toLowerCase(onBoard) == Character.toLowerCase(piece.getAbbrChar());
     }
 
     public boolean pieceExists(final boolean isWhite, final char piece) {

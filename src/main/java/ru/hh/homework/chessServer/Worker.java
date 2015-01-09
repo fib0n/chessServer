@@ -43,28 +43,29 @@ class Worker implements Runnable {
     private List<Exchange> process(final Exchange request) {
         final List<Exchange> exchanges = new ArrayList<>();
         final String[] args = request.body.split("\\s+");
-
-        final Optional<Settings.Command> commandMaybe = Settings.Command.tryParse(args[0]);
-        if (commandMaybe.isPresent()) {
-            switch (commandMaybe.get()) {
-                case CREATE:
-                    exchanges.add(create(request.address, args));
-                    break;
-                case JOIN:
-                    exchanges.addAll(join(request.address, args));
-                    break;
-                case MOVE:
-                    exchanges.addAll(move(request.address, args));
-                    break;
-                case PRINT_STATE:
-                    exchanges.add(printState(request.address));
-                    break;
-                case EXIT:
-                    exchanges.addAll(exit(request.address));
-                    break;
-                case CLOSE:
-                    close(request.address);
-                    return exchanges;
+        if (args.length > 0) {
+            final Optional<Settings.Command> commandMaybe = Settings.Command.tryParse(args[0]);
+            if (commandMaybe.isPresent()) {
+                switch (commandMaybe.get()) {
+                    case CREATE:
+                        exchanges.add(create(request.address, args));
+                        break;
+                    case JOIN:
+                        exchanges.addAll(join(request.address, args));
+                        break;
+                    case MOVE:
+                        exchanges.addAll(move(request.address, args));
+                        break;
+                    case PRINT_STATE:
+                        exchanges.add(printState(request.address));
+                        break;
+                    case EXIT:
+                        exchanges.addAll(exit(request.address));
+                        break;
+                    case CLOSE:
+                        close(request.address);
+                        return exchanges;
+                }
             }
         }
         if (exchanges.isEmpty())
